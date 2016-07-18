@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <h3>Embedded Collection of Forms!</h3>
+
+    {% javascripts '@AppBundle/Resources/public/js/jquery-2.2.3.min.js' %}
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+    {% javascripts '@AppBundle/Resources/public/js/AddTag.js' %}
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+    {{ form_start(form) }}
+    <form name="task" action ="{{ path("homepage")}}" method="post">
+        {{ form_row(form.description) }}
+        <ul class="tags" data-prototype="{{ form_widget(form.tags.vars.prototype)|e }}">
+            {% for tag in form.tags %}
+                <li>{{ form_row(tag.name) }}</li>
+            {% endfor %}
+        </ul>
+    {{ form_end(form) }}
+
+    {% endblock %}
